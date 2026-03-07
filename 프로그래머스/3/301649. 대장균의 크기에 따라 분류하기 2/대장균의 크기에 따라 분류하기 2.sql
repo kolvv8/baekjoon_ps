@@ -1,0 +1,14 @@
+-- 코드를 작성해주세요
+SELECT ID, 
+    CASE
+        WHEN PER = 1 THEN 'CRITICAL'
+        WHEN PER = 2 THEN 'HIGH'
+        WHEN PER = 3 THEN 'MEDIUM'
+        ELSE 'LOW'    
+    END AS COLONY_NAME
+FROM (
+    SELECT ID,
+        NTILE(4) OVER (ORDER BY SIZE_OF_COLONY DESC) AS PER
+        FROM ECOLI_DATA
+    ) AS SUB
+ORDER BY ID
